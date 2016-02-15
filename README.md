@@ -1,3 +1,9 @@
+# FORK of mupx
+
+Changes : `--link=mongodb:mongodb` and `--publish=127.0.0.1:$PORT:80` and no verify
+
+Waiting for the new mupx version https://github.com/kadirahq/meteor-up
+
 # Meteor Up X (Development Version)
 
 > This is the latest development version of Meteor Up and known as `mupx`. Once `mupx` becomes stable we'll merge into master and release as `mup`.

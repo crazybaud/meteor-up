@@ -29,7 +29,7 @@ while [[ true ]]; do
   curl localhost:$PORT && exit 0
 
   if [ "$elaspsed" == "$DEPLOY_CHECK_WAIT_TIME" ]; then
-    # revert_app
+    revert_app
     exit 1
   fi
 done
