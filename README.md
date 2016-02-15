@@ -1,8 +1,10 @@
-# FORK of mupx
+# Fork of mupx
+
+Why : Waiting for the new mupx version https://github.com/kadirahq/meteor-up
 
 Changes : `--link=mongodb:mongodb` and `--publish=127.0.0.1:$PORT:80` and no verify
 
-Waiting for the new mupx version https://github.com/kadirahq/meteor-up
+Install : `npm install -g git+https://git@github.com/crazybaud/meteor-up.git#mupx`, and after change `npm update -g mupx`
 
 # Meteor Up X (Development Version)
 
