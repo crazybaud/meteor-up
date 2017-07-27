@@ -27,7 +27,8 @@ if [ "$USE_LOCAL_MONGO" == "1" ]; then
     --env-file=$ENV_FILE \
     --link=mongodb:mongodb \
     --hostname="$HOSTNAME-$APPNAME" \
-    --env=MONGO_URL=mongodb://mongodb:27017/$APPNAME \
+    --network=nelio_database \
+    --env=MONGO_URL=mongodb://mongo/$APPNAME \
     --name=$APPNAME \
     nelioteam/meteord:base
 else
