@@ -25,7 +25,6 @@ if [ "$USE_LOCAL_MONGO" == "1" ]; then
     --publish=$PORT:80 \
     --volume=$BUNDLE_PATH:/bundle \
     --env-file=$ENV_FILE \
-    --link=mongodb:mongodb \
     --hostname="$HOSTNAME-$APPNAME" \
     --network=nelio_database \
     --env=MONGO_URL=mongodb://mongo:27017/$APPNAME \
