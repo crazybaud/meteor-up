@@ -33,7 +33,7 @@ if [ "$USE_LOCAL_MONGO" == "1" ]; then
 else
   docker run \
     -d \
-    --link=mongodb:mongodb \
+    --link=mongodb2:mongodb2 \
     --restart=always \
     --publish=127.0.0.1:$PORT:80 \
     --volume=$BUNDLE_PATH:/bundle \
