@@ -33,12 +33,13 @@ if [ "$USE_LOCAL_MONGO" == "1" ]; then
 else
   docker run \
     -d \
-    --link=mongodb2:mongodb2 \
     --restart=always \
+    --network=nelio_database \
     --publish=127.0.0.1:$PORT:80 \
     --volume=$BUNDLE_PATH:/bundle \
     --hostname="$HOSTNAME-$APPNAME" \
     --env-file=$ENV_FILE \
+    --env=MONGO_URL=mongodb://mongo:27017/$APPNAME \
     --name=$APPNAME \
     nelioteam/meteord:base
 fi
