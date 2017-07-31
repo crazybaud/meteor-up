@@ -1,6 +1,7 @@
 #!/bin/bash
 
 APPNAME=<%= appName %>
+DBNAME=<%= dbName %>
 APP_PATH=/opt/$APPNAME
 BUNDLE_PATH=$APP_PATH/current
 ENV_FILE=$APP_PATH/config/env.list
@@ -27,7 +28,7 @@ if [ "$USE_LOCAL_MONGO" == "1" ]; then
     --env-file=$ENV_FILE \
     --hostname="$HOSTNAME-$APPNAME" \
     --network=nelio_database \
-    --env=MONGO_URL=mongodb://mongo:27017/$APPNAME \
+    --env=MONGO_URL=mongodb://mongo:27017/$DBNAME \
     --name=$APPNAME \
     nelioteam/meteord:base
 else
@@ -39,7 +40,7 @@ else
     --volume=$BUNDLE_PATH:/bundle \
     --hostname="$HOSTNAME-$APPNAME" \
     --env-file=$ENV_FILE \
-    --env=MONGO_URL=mongodb://mongo:27017/$APPNAME \
+    --env=MONGO_URL=mongodb://mongo:27017/$DBNAME \
     --name=$APPNAME \
     nelioteam/meteord:base
 fi
