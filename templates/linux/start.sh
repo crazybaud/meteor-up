@@ -1,7 +1,6 @@
 #!/bin/bash
 
 APPNAME=<%= appName %>
-DBNAME=<%= dbName %>
 APP_PATH=/opt/$APPNAME
 BUNDLE_PATH=$APP_PATH/current
 ENV_FILE=$APP_PATH/config/env.list
@@ -40,7 +39,6 @@ else
     --volume=$BUNDLE_PATH:/bundle \
     --hostname="$HOSTNAME-$APPNAME" \
     --env-file=$ENV_FILE \
-    --env=MONGO_URL=mongodb://mongo:27017/$DBNAME \
     --name=$APPNAME \
     nelioteam/meteord:base
 fi
