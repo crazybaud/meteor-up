@@ -20,8 +20,8 @@ set -e
 
   docker run \
     -d \
-    --link=mongodb:mongodb \
-    --restart=always \
+    -restart=always \
+    --network=nelio_database \
     --publish=127.0.0.1:$PORT:80 \
     --hostname="$HOSTNAME-$APPNAME" \
     --env-file=$ENV_FILE \
