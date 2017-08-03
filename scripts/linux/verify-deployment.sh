@@ -1,7 +1,7 @@
 PORT=<%= port %>
 APPNAME=<%= appName %>
 APP_PATH=/opt/$APPNAME
-START_SCRIPT=$APP_PATH/config/start.sh
+START_SCRIPT=$APP_PATH/config/start-with-swarm.sh
 DEPLOY_CHECK_WAIT_TIME=<%= deployCheckWaitTime %>
 
 cd $APP_PATH

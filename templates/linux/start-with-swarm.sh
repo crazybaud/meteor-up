@@ -41,5 +41,6 @@ set -e
     --link=$APPNAME:backend \
     --publish=<%= sslConfig.port %>:443 \
     --name=$APPNAME-frontend \
-    meteorhacks/mup-frontend-server /start.sh
+    meteorhacks/mup-frontend-server /start-with-swarm.sh
 <% } %>
+
