@@ -53,4 +53,4 @@ sudo cp tmp/bundle.tar.gz current/
 # cd ..
 
 # start app
-sudo bash config/start.sh
+sudo bash config/start-with-swarm.sh
