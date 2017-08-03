@@ -15,7 +15,7 @@ docker rm -f $APPNAME-frontend
 
 # We don't need to fail the deployment because of a docker hub downtime
 set +e
-docker build --build-arg VOLUME=$BUNDLE_PATH  -t nelioteam/meteor-app .
+docker build --build-arg VOLUME=$BUNDLE_PATH -f config/Dockerfile -t nelioteam/meteor-app .
 set -e
 
   docker run \
