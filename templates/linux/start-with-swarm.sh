@@ -4,43 +4,26 @@ APPNAME=<%= appName %>
 APP_PATH=/opt/$APPNAME
 BUNDLE_PATH=$APP_PATH/current
 ENV_FILE=$APP_PATH/config/env.list
-PORT=<%= port %>
-USE_LOCAL_MONGO=<%= useLocalMongo? "1" : "0" %>
 
-# Remove previous version of the app, if exists
-docker rm -f $APPNAME
-
-# Remove frontend container if exists
-docker rm -f $APPNAME-frontend
-
-# We don't need to fail the deployment because of a docker hub downtime
 set +e
-docker build --build-arg VOLUME=$BUNDLE_PATH -f config/Dockerfile -t nelioteam/meteor-app .
+docker pull nelioteam/meteord:base
+isServiceExist=$(echo $(docker service ls -f name="$APPNAME") | grep -c "$APPNAME")
 set -e
 
-  docker run \
-    -d \
-    -restart=always \
-    --network=nelio_database \
-    --publish=127.0.0.1:$PORT:80 \
-    --hostname="$HOSTNAME-$APPNAME" \
-    --env-file=$ENV_FILE \
-    --name=$APPNAME \
-    nelioteam/meteor-app
-
-<% if(typeof sslConfig === "object")  { %>
-  # We don't need to fail the deployment because of a docker hub downtime
-  set +e
-  docker pull meteorhacks/mup-frontend-server:latest
-  set -e
-  docker run \
-    -d \
-    --restart=always \
-    --volume=/opt/$APPNAME/config/bundle.crt:/bundle.crt \
-    --volume=/opt/$APPNAME/config/private.key:/private.key \
-    --link=$APPNAME:backend \
-    --publish=<%= sslConfig.port %>:443 \
-    --name=$APPNAME-frontend \
-    meteorhacks/mup-frontend-server /start-with-swarm.sh
-<% } %>
-
+if  [ "$isServiceExist" == "1" ]; then
+    echo "Update service $APPNAME"
+    docker service update $APPNAME --force --detach=false
+else
+    echo "Create service $APPNAME"
+    docker service create \
+      --replicas 3 \
+      --constraint 'node.role == manager' \
+      --name $APPNAME \
+      --update-delay 10s \
+      --hostname "$HOSTNAME-$APPNAME" \
+      --env-file=$ENV_FILE \
+      --network=nelio_database \
+      --detach=false \
+      --mount type=bind,source=$BUNDLE_PATH,destination=/bundle \
+      nelioteam/meteord:base
+fi

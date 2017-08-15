@@ -37,8 +37,8 @@ sudo cp tmp/bundle.tar.gz current/
 # but not now
 
 # # rebuild binary module
-# cd current
-# sudo tar xzf bundle.tar.gz
+cd current
+sudo tar -xzf bundle.tar.gz
 
 # docker run \
 #   --rm \
