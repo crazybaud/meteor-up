@@ -23,7 +23,7 @@ else
       --hostname "$HOSTNAME-$APPNAME" \
       --env-file=$ENV_FILE \
       --network=nelio_database \
-      --network=global_nginx \
+      --network=meteor_nelio_app \
       --detach=false \
       --mount type=bind,source=$BUNDLE_PATH,destination=/bundle \
       nelioteam/meteord:base
