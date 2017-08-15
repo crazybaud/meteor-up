@@ -50,8 +50,7 @@ sudo tar -xzf bundle.tar.gz
 # sudo rm bundle.tar.gz
 # sudo tar czf bundle.tar.gz bundle
 # sudo rm -rf bundle
-# cd ..
+cd ..
 
 # start app
-sleep 5
 sudo bash config/start-with-swarm.sh
