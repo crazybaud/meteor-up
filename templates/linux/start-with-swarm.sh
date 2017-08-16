@@ -10,7 +10,10 @@ docker pull nelioteam/meteord:base
 isServiceExist=$(echo $(docker service ls -f name="$APPNAME") | grep -c "$APPNAME")
 set -e
 
-docker service rm $APPNAME
+if  [ "$isServiceExist" == "1" ]; then
+    echo "Update service $APPNAME"
+    docker service rm $APPNAME
+fi
 echo "Create service $APPNAME"
 docker service create \
   --replicas 3 \
