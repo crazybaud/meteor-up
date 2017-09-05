@@ -6,7 +6,7 @@ BUNDLE_PATH=$APP_PATH/current
 ENV_FILE=$APP_PATH/config/env.list
 
 set +e
-docker pull nelioteam/meteord:base
+docker pull nelioteam/meteord:base-update
 isServiceExist=$(echo $(docker service ls -f name="$APPNAME") | grep -c "$APPNAME")
 set -e
 
@@ -26,4 +26,4 @@ docker service create \
   --network=meteor_nelio_app \
   --detach=false \
   --mount type=bind,source=$BUNDLE_PATH,destination=/bundle \
-  nelioteam/meteord:base
+  nelioteam/meteord:base-update
