@@ -50,4 +50,4 @@ fi
 export PORT=${PORT:-80}
 
 echo "=> Starting meteor app on port:$PORT"
-export MONGO_URL=$(cat /run/secrets/mongo_url) && node main.js
+node main.js

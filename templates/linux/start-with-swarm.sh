@@ -22,7 +22,7 @@ docker service create \
   --update-delay 10s \
   --hostname "$HOSTNAME-$APPNAME" \
   --env-file=$ENV_FILE \
-  --network=nelio_database \
+  --network=nelio_app \
   --network=meteor_nelio_app \
   --detach=false \
   --mount type=bind,source=$BUNDLE_PATH,destination=/bundle \
