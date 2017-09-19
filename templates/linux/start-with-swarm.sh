@@ -28,4 +28,4 @@ docker service create \
   --mount type=bind,source=$BUNDLE_PATH,destination=/bundle \
   nelioteam/meteord:base-update
 
-/home/nelio/nelio_fresh_admin/nelio_app/devops/scripts/updateSecret.sh nelio_app_meteor mongo_url "mongodb://mongo:27017,mongo_2:27017,mongo_3:27017/nelio-dev?replicaSet=rs0"
+/home/nelio/nelio_fresh_admin/devops/docker/updateSecret.sh nelio_app_meteor mongo_url "mongodb://mongo:27017,mongo_2:27017,mongo_3:27017/nelio-dev?replicaSet=rs0"
