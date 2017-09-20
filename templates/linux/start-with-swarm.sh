@@ -17,7 +17,7 @@ if  [ "$isServiceExist" == "1" ]; then
 fi
 echo "Create service $APPNAME"
 docker service create \
-  --replicas 3 \
+  --replicas 1 \
   --constraint 'node.role == manager' \
   --name $APPNAME \
   --update-delay 10s \
