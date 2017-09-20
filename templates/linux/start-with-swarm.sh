@@ -1,6 +1,7 @@
 #!/bin/bash
 
 APPNAME=<%= appName %>
+MONGO_URL=<%= mongoURL %>
 APP_PATH=/opt/$APPNAME
 BUNDLE_PATH=$APP_PATH/current
 ENV_FILE=$APP_PATH/config/env.list
@@ -28,4 +29,11 @@ docker service create \
   --mount type=bind,source=$BUNDLE_PATH,destination=/bundle \
   nelioteam/meteord:base-update
 
-/home/nelio/nelio_fresh_admin/devops/docker/updateSecret.sh nelio_app_meteor mongo_url "mongodb://mongo:27017,mongo_2:27017,mongo_3:27017/nelio-dev?replicaSet=rs0"
+dockerSecret=$(docker secret ls -f name="mongo_url" --format "{{.Name}}")
+if [ ${dockerSecret} -ge 2 ]; then
+docker service update --secret-add  src="$dockerSecret",target="mongo_url" $APPNAME
+else
+echo "" | docker secret create mongo_url_temporary
+docker service update --secret-add  src="mongo_url_temporary",target="mongo_url" $APPNAME
+/home/nelio/nelio_fresh_admin/devops/docker/updateSecret.sh mongo_url $MONGO_URL
+fi
