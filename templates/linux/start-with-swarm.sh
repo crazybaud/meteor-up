@@ -1,7 +1,7 @@
 #!/bin/bash
 
 APPNAME=<%= appName %>
-MONGO_URL=<%= mongoURL %>
+MONGO_URL=<%= mongoUrl %>
 APP_PATH=/opt/$APPNAME
 BUNDLE_PATH=$APP_PATH/current
 ENV_FILE=$APP_PATH/config/env.list
