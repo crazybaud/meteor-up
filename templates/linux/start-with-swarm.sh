@@ -30,7 +30,7 @@ docker service create \
   nelioteam/meteord:base-update
 
 dockerSecret=$(docker secret ls -f name="mongo_url" --format "{{.Name}}")
-if [ ${dockerSecret} -ge 2 ]; then
+if [ ${#dockerSecret} -ge 2 ]; then
 docker service update --secret-add  src="$dockerSecret",target="mongo_url" $APPNAME
 else
 echo "" | docker secret create mongo_url_temporary -
