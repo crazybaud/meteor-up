@@ -26,14 +26,15 @@ docker service create \
   --network=nelio_app \
   --network=meteor_nelio_app \
   --detach=false \
+  --log-opt max-size=50m \
   --mount type=bind,source=$BUNDLE_PATH,destination=/bundle \
   nelioteam/meteord:base-update
 
 dockerSecret=$(docker secret ls -f name="mongo_url" --format "{{.Name}}")
 if [ ${#dockerSecret} -ge 2 ]; then
-docker service update --secret-add  src="$dockerSecret",target="mongo_url" $APPNAME
+  docker service update --secret-add  src="$dockerSecret",target="mongo_url" $APPNAME
 else
-echo "" | docker secret create mongo_url_temporary -
-docker service update --secret-add  src="mongo_url_temporary",target="mongo_url" $APPNAME
-/home/nelio/nelio_fresh_admin/devops/docker/updateSecret.sh mongo_url $MONGO_URL
+  echo "" | docker secret create mongo_url_temporary -
+  docker service update --secret-add  src="mongo_url_temporary",target="mongo_url" $APPNAME
+  /home/nelio/nelio_fresh_admin/devops/docker/updateSecret.sh mongo_url $MONGO_URL
 fi
