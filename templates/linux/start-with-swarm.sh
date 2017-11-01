@@ -6,7 +6,6 @@ APP_PATH=/opt/$APPNAME
 BUNDLE_PATH=$APP_PATH/current
 ENV_FILE=$APP_PATH/config/env.list
 
-
 insertMeteor() {
   ssh -p 42 nelio@$1 /bin/bash << EOF
   sudo mkdir -p $BUNDLE_PATH
@@ -19,8 +18,7 @@ EOF
 EOF
 }
 
-# bad method to check if it's dev or prod
-if [[ $MONGO_URL == *"nelio-dev"* ]]; then
+if [[ "$MONGO_URL" == *"nelio-dev"* ]]; then
   insertMeteor 145.239.13.202
   insertMeteor 145.239.158.86
 else
