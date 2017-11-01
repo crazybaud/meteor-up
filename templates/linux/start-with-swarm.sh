@@ -18,7 +18,6 @@ fi
 echo "Create service $APPNAME"
 docker service create \
   --replicas 1 \
-  --constraint 'node.role == manager' \
   --name $APPNAME \
   --update-delay 10s \
   --hostname "$HOSTNAME-$APPNAME" \
