@@ -8,11 +8,14 @@ ENV_FILE=$APP_PATH/config/env.list
 
 
 insertMeteor() {
-  ssh -p 42 nelio@$1 sudo mkdir -p $BUNDLE_PATH && sudo chown nelio -R /opt/
-  scp -P 42 -r $BUNDLE_PAT/bundle.tar.gz nelio@$1:$BUNDLE_PATH
+  ssh -p 42 nelio@$1 /bin/bash << EOF
+  sudo mkdir -p $BUNDLE_PATH
+  sudo chown nelio -R /opt/
+EOF
+  scp -P 42 -r $BUNDLE_PATH/bundle.tar.gz nelio@$1:$BUNDLE_PATH
   ssh -p 42 nelio@$1 /bin/bash << EOF
   cd /opt/nelio_app_meteor/current/
-  tar -xvf $BUNDLE_PATH/bundle.tar.gz $BUNDLE_PATH
+  tar -xvf bundle.tar.gz
 EOF
 }
 
@@ -20,7 +23,7 @@ EOF
 if [[ $MONGO_URL == *"nelio-dev"* ]]; then
   insertMeteor 145.239.13.202
   insertMeteor 145.239.158.86
-  else
+else
   insertMeteor 145.239.158.81
   insertMeteor 145.239.158.80
 fi
