@@ -6,26 +6,6 @@ APP_PATH=/opt/$APPNAME
 BUNDLE_PATH=$APP_PATH/current
 ENV_FILE=$APP_PATH/config/env.list
 
-insertMeteor() {
-  ssh -p 42 nelio@$1 /bin/bash << EOF
-  sudo mkdir -p $BUNDLE_PATH
-  sudo chown nelio -R /opt/
-EOF
-  scp -P 42 -r $BUNDLE_PATH/bundle.tar.gz nelio@$1:$BUNDLE_PATH
-  ssh -p 42 nelio@$1 /bin/bash << EOF
-  cd /opt/nelio_app_meteor/current/
-  tar -xvf bundle.tar.gz
-EOF
-}
-
-if [[ "$MONGO_URL" == *"nelio-dev"* ]]; then
-  insertMeteor 145.239.13.202
-  insertMeteor 145.239.158.86
-else
-  insertMeteor 145.239.158.81
-  insertMeteor 145.239.158.80
-fi
-
 set +e
 docker pull nelioteam/meteord:base-update
 isServiceExist=$(echo $(docker service ls -f name="$APPNAME") | grep -c "$APPNAME")
